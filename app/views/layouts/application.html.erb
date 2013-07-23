@@ -22,7 +22,7 @@ Signed in as <%= current_user.email %>
 Your questions are:
 <br>
 <strong><% current_user.questions.each do |question| %></strong>
-<%= question.query %>
+<% question.query %>
 <% end %>
 </body>
 </html>

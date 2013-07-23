@@ -19,16 +19,14 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-  @question.user_id = current_user
   end
 
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
-    @question.user_id = current_user
-
-
+    params.permit!
+    @question = current_user.questions.build(params[:question])
+    @current_user.save
 
     respond_to do |format|
       if @question.save
@@ -44,6 +42,8 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
+    @question.update_attributes(params[:question])
+    @question.users << current_user
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
