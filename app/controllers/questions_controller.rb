@@ -26,7 +26,9 @@ class QuestionsController < ApplicationController
   def create
     params.permit!
     @question = current_user.questions.build(params[:question])
-    @current_user.save
+    @question.user_id = current_user.id
+    current_user.id = @question.id
+
 
     respond_to do |format|
       if @question.save
