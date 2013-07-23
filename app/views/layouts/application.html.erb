@@ -17,12 +17,15 @@ Signed in as <%= current_user.email %>
 
 </nav>
 
-<%= yield %>
-<br>
-Your questions are:
-<br>
-<strong><% current_user.questions.each do |question| %></strong>
-<% question.query %>
+<% if !current_user.nil? %>
+  <br>
+  Your questions are:
+  <br>
+  <% current_user.questions.each do |question| %>
+    <%= question.query %>
+  <% end %>
 <% end %>
+
+<%= yield %>
 </body>
 </html>
