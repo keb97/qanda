@@ -5,6 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = User.create(:email => "admin@ticketee.com",
-:password => "password")
+user = User.create(:email => "admin2@ticketee.com",
+:password => "password2")
 user.confirm!
