@@ -19,10 +19,12 @@ Signed in as <%= current_user.email %>
 
 <%= yield %>
 <br>
-Your questions are:
+<h3>Your questions are:<h3>
 <br>
-<strong><% current_user.questions.each do |question| %></strong>
-<% question.query %>
-<% end %>
+<% current_user.questions.each do |question| %>
+  <p>
+    <%= link_to question.query, question %>
+  </p>
+<% end if current_user.present? %>
 </body>
 </html>

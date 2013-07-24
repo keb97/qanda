@@ -26,8 +26,7 @@ class QuestionsController < ApplicationController
   def create
     params.permit!
     @question = current_user.questions.build(params[:question])
-    @question.user_id = current_user.id
-    current_user.id = @question.id
+    current_user.save
 
 
     respond_to do |format|
@@ -44,16 +43,19 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    @question.update_attributes(params[:question])
-    @question.users << current_user
     respond_to do |format|
-      if @question.update(question_params)
+      if @question.update_attributes(question_params)
+        @question.users << current_user
+        respond_to do |format|
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @question }
+      end
       else
+        respond_to do |format|
         format.html { render action: 'edit' }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+    end
     end
   end
 
